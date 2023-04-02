@@ -7,13 +7,9 @@ from scipy.optimize import minimize_scalar
 chat_id = 385459798 # Ваш chat ID, не меняйте название переменной
 
 
-
-
-def log_likelihood(a, x):
-    sigma = np.sqrt(np.var(np.log(x)) + np.mean(np.log(x)) ** 2)
-    return -np.sum(lognorm.logpdf(x, s=sigma, scale=np.exp(a)))
-
     
 def solution(x: np.array) -> float:
-    result = minimize_scalar(log_likelihood, args=(x,))
-    return result.x
+    x = np.array([v - 855 for v in x])
+    print(x)
+    s, loc, scale = lognorm.fit(x)
+    return loc;
